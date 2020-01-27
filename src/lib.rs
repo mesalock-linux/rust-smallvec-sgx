@@ -75,12 +75,14 @@
 #![cfg_attr(feature = "specialization", feature(specialization))]
 #![cfg_attr(feature = "may_dangle", feature(dropck_eyepatch))]
 #![deny(missing_docs)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
 
 #[doc(hidden)]
 pub extern crate alloc;
 
 #[cfg(any(test, feature = "write"))]
-extern crate std;
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx"), feature = "write"))]
+extern crate sgx_tstd as std;
 
 #[cfg(test)]
 mod tests;
