@@ -39,6 +39,10 @@ extern crate alloc;
 #[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx"), feature = "write"))]
 extern crate sgx_tstd as std;
 
+#[cfg(any(test, feature = "write"))]
+#[cfg(all(feature = "mesalock_sgx", target_env = "sgx", feature = "write"))]
+extern crate std;
+
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::borrow::{Borrow, BorrowMut};
