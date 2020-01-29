@@ -89,6 +89,11 @@ mod tests;
 
 #[allow(deprecated)]
 use alloc::alloc::{Layout, LayoutErr};
+
+#[cfg(any(test, feature = "write"))]
+#[cfg(all(feature = "mesalock_sgx", target_env = "sgx", feature = "write"))]
+extern crate std;
+
 use alloc::boxed::Box;
 use alloc::{vec, vec::Vec};
 use core::borrow::{Borrow, BorrowMut};
